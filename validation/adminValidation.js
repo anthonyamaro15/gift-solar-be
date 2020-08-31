@@ -12,13 +12,19 @@ function validateBody(req, res, next) {
 function validateId(req, res, next) {
   const { id } = req.params;
 
-  Admin.getById(id).then((admin) => {
-    if (!admin) {
-      res.status(404).json({ errorMessage: "Invalid Admin ID" });
-    } else {
-      next();
-    }
-  });
+  Admin.getById(id)
+    .then((admin) => {
+      if (!admin) {
+        res.status(404).json({ errorMessage: "Invalid Admin ID" });
+      } else {
+        next();
+      }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ errorMessage: "Something went wrong", error: err.message });
+    });
 }
 
 module.exports = {
