@@ -1,9 +1,9 @@
-const Admin = require("../data/config-bd");
+const Admin = require("../admin/adminModel");
 
 function validateBody(req, res, next) {
   const { email, password } = req.body;
 
-  if (!email || password) {
+  if (!email || !password) {
     res.status(500).json({ errorMessage: "Please provided require fields" });
   } else {
     next();
