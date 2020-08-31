@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const server = express();
+const restricted = require("../middlewares/restricted");
 
 const adminRoute = require("../admin/adminRoutes");
 
