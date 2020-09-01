@@ -6,6 +6,7 @@ const restricted = require("../middlewares/restricted");
 
 const adminRoute = require("../admin/adminRoutes");
 const applicationRoutes = require("../routes/applicationsRoutes");
+const emailRoute = require("../routes/emailRoute");
 
 server.use(express.json());
 server.use(cors());
@@ -13,5 +14,6 @@ server.use(helmet());
 
 server.use("/api/auth", adminRoute);
 server.use("/api/application", applicationRoutes);
+server.use("/api", emailRoute);
 
 module.exports = server;
