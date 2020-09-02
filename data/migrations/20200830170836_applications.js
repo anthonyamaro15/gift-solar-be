@@ -7,13 +7,13 @@ exports.up = function (knex) {
         table.boolean("package_plus");
         table.boolean("package_basico");
         table.string("first_person_name", 255).notNullable();
-        table.integer("first_person_number").notNullable();
+        table.string("first_person_number").notNullable();
         table.string("first_person_email", 255).notNullable().unique();
         table.boolean("first_person_do_taxes");
         table.boolean("first_person_dont_do_taxes");
         // second person
         table.string("second_person_name", 255);
-        table.integer("second_person_number");
+        table.string("second_person_number");
         table.string("second_person_email", 255);
         table.boolean("second_person_do_taxes");
         table.boolean("second_person_dont_do_taxes");
@@ -21,11 +21,11 @@ exports.up = function (knex) {
         table.string("address", 255).notNullable();
         table.string("state", 255).notNullable();
         table.string("city", 255).notNullable();
-        table.integer("zipcode").notNullable();
+        table.string("zipcode").notNullable();
         // property information
-        table.integer("house_year_built").notNullable();
-        table.integer("house_sqrtfoot").notNullable();
-        table.integer("house_total_floors").notNullable();
+        table.string("house_year_built").notNullable();
+        table.string("house_sqrtfoot").notNullable();
+        table.string("house_total_floors").notNullable();
         table.boolean("family_residence");
         table.boolean("town_house");
         table.boolean("condominio");
@@ -53,58 +53,58 @@ exports.up = function (knex) {
         table.boolean("hoa_exist");
         table.boolean("hoa_no_exist");
         table.string("hoa_information", 255);
-        table.integer("hoa_phone");
+        table.string("hoa_phone");
         // electric equitment information
         table.boolean("is_power_panel_close");
         table.boolean("is_power_panel_open");
         table.string("desc_for_panel_close");
-        table.integer("power_panel_size");
+        table.string("power_panel_size");
         // ac information
-        table.integer("ac_count");
-        table.integer("heater_count");
+        table.string("ac_count");
+        table.string("heater_count");
         table.boolean("heater_gas");
         table.boolean("heater_electric");
         table.boolean("heater_solar");
         table.boolean("have_solar_panel");
         table.boolean("dont_have_solar_panel");
         // power acc info
-        table.integer("power_bill_acc_number").notNullable();
+        table.string("power_bill_acc_number").notNullable();
         // yearly information
-        table.float("enero_cost").notNullable();
-        table.integer("enero_kilowatts").notNullable();
+        table.string("enero_cost").notNullable();
+        table.string("enero_kilowatts").notNullable();
 
-        table.float("febrero_cost").notNullable();
-        table.integer("febrero_kilowatts").notNullable();
+        table.string("febrero_cost").notNullable();
+        table.string("febrero_kilowatts").notNullable();
 
-        table.float("marzo_cost").notNullable();
-        table.integer("marzo_kilowatts").notNullable();
+        table.string("marzo_cost").notNullable();
+        table.string("marzo_kilowatts").notNullable();
 
-        table.float("abril_cost").notNullable();
-        table.integer("abril_kilowatts").notNullable();
+        table.string("abril_cost").notNullable();
+        table.string("abril_kilowatts").notNullable();
 
-        table.float("mayo_cost").notNullable();
-        table.integer("mayo_kilowatts").notNullable();
+        table.string("mayo_cost").notNullable();
+        table.string("mayo_kilowatts").notNullable();
 
-        table.float("junio_cost").notNullable();
-        table.integer("junio_kilowatts").notNullable();
+        table.string("junio_cost").notNullable();
+        table.string("junio_kilowatts").notNullable();
 
-        table.float("julio_cost").notNullable();
-        table.integer("julio_kilowatts").notNullable();
+        table.string("julio_cost").notNullable();
+        table.string("julio_kilowatts").notNullable();
 
-        table.float("agosto_cost").notNullable();
-        table.integer("agosto_kilowatts").notNullable();
+        table.string("agosto_cost").notNullable();
+        table.string("agosto_kilowatts").notNullable();
 
-        table.float("septiembre_cost").notNullable();
-        table.integer("septiembre_kilowatts").notNullable();
+        table.string("septiembre_cost").notNullable();
+        table.string("septiembre_kilowatts").notNullable();
 
-        table.float("octubre_cost").notNullable();
-        table.integer("octubre_kilowatts").notNullable();
+        table.string("octubre_cost").notNullable();
+        table.string("octubre_kilowatts").notNullable();
 
-        table.float("noviembre_cost").notNullable();
-        table.integer("noviembre_kilowatts").notNullable();
+        table.string("noviembre_cost").notNullable();
+        table.string("noviembre_kilowatts").notNullable();
 
-        table.float("diciembre_cost").notNullable();
-        table.integer("diciembre_kilowatts").notNullable();
+        table.string("diciembre_cost").notNullable();
+        table.string("diciembre_kilowatts").notNullable();
       })
       // Images table
       .createTable("images", (table) => {
