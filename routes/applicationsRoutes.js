@@ -9,7 +9,7 @@ const {
 const route = express.Router();
 
 // POST /api/application/add
-route.post("/add", validateBody, (req, res) => {
+route.post("/add", (req, res) => {
   const application = req.body;
   const images = req.body.images;
   const pdfs = req.body.pdf_file;
@@ -22,21 +22,19 @@ route.post("/add", validateBody, (req, res) => {
     .then(([id]) => {
       // loop through images array to add them to its own table. addeded here becase we need application id
       images.forEach((imgs) => {
-        let imgObj = { application_id: id, imgs };
+        let imgObj = { application_id: id, ...imgs };
         Application.addImgs(imgObj)
           .then(() => console.log("imgs added!"))
           .catch((err) => console.log(err.message));
       });
-      // there is only going to be one pdf file we added here becase we need the application id
+      // // there is only going to be one pdf file we added here becase we need the application id
       Application.addPfd({ application_id: id, pdf_file: pdfs[0] })
         .then(() => console.log("pdf added"))
         .catch((err) => console.log(err.message));
       res.status(201).json({ message: "application added", id });
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({ errorMessage: "Something went wron", error: err.message });
+      res.status(500).json({ errorMessage: err.message });
     });
 });
 
