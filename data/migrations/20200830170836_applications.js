@@ -121,6 +121,7 @@ exports.up = function (knex) {
       .createTable("pdfs", (table) => {
         table.increments();
         table.string("pdf_file", 255);
+        table.string("pdf_name", 255);
         table
           .integer("application_id")
           .notNullable()
