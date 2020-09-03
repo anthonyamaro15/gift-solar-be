@@ -13,10 +13,12 @@ route.post("/add", (req, res) => {
   const application = req.body;
   const images = req.body.images;
   const pdfs = req.body.pdf_file;
+  const pdf_name = req.body.pdf_name;
 
   // removed this two arrays because there are multiple images but sent everything in one POST request from the front-end
   delete application.images;
   delete application.pdf_file;
+  delete application.pdf_name;
 
   Application.add(application)
     .then(([id]) => {
@@ -28,7 +30,7 @@ route.post("/add", (req, res) => {
           .catch((err) => console.log(err.message));
       });
       // // there is only going to be one pdf file we added here becase we need the application id
-      Application.addPfd({ application_id: id, pdf_file: pdfs[0] })
+      Application.addPfd({ application_id: id, pdf_file: pdfs, pdf_name })
         .then(() => console.log("pdf added"))
         .catch((err) => console.log(err.message));
       res.status(201).json({ message: "application added", id });
