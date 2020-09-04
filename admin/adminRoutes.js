@@ -9,7 +9,7 @@ const route = express.Router();
 route.post("/register", validateBody, (req, res) => {
   const user = req.body;
 
-  const hash = bcrypt.hashSync(user.password, 8);
+  const hash = bcrypt.hashSync(user.password, Number(process.env.ROUNDS));
   user.password = hash;
 
   Admin.add(user)
