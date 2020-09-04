@@ -1,10 +1,29 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
 const Application = require("../models/applicationModel");
+const newApplicationTemplate = require("../templates/newApplicationTemplate");
 const {
   validateId,
   validatePdfId,
   validateBody,
 } = require("../validation/applicationValidation");
+
+async function main(body, func, header) {
+  let transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+    },
+  });
+  let info = await transporter.sendMail({
+    from: `Gift Solar <${process.env.GMAIL_USER}>`,
+    to: process.env.SEND_TO,
+    subject: header,
+    html: func(body),
+  });
+  console.log("message sent: %s", info.messageId);
+}
 
 const route = express.Router();
 
@@ -34,6 +53,8 @@ route.post("/add", validateBody, (req, res) => {
         .then(() => console.log("pdf added"))
         .catch((err) => console.log(err.message));
       res.status(201).json({ message: "recibimos su applicion.", id });
+      // send notification email of new application
+      main(application, newApplicationTemplate, "Nueva applicacion");
     })
     .catch((err) => {
       res.status(500).json({ errorMessage: err.message });
