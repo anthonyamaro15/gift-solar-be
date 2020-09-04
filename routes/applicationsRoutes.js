@@ -9,7 +9,7 @@ const {
 const route = express.Router();
 
 // POST /api/application/add
-route.post("/add", (req, res) => {
+route.post("/add", validateBody, (req, res) => {
   const application = req.body;
   const images = req.body.images;
   const pdfs = req.body.pdf_file;
@@ -33,7 +33,7 @@ route.post("/add", (req, res) => {
       Application.addPfd({ application_id: id, pdf_file: pdfs, pdf_name })
         .then(() => console.log("pdf added"))
         .catch((err) => console.log(err.message));
-      res.status(201).json({ message: "application added", id });
+      res.status(201).json({ message: "recibimos su applicion.", id });
     })
     .catch((err) => {
       res.status(500).json({ errorMessage: err.message });
