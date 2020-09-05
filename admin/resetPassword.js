@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Admin = require("./adminModel");
 
+console.log("here ", process.env.SECRET_URL);
+
 const route = express.Router();
 
 route.patch("/forgotpassword", (req, res) => {
@@ -33,12 +35,12 @@ route.patch("/forgotpassword", (req, res) => {
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
-              from: `${process.env.NAME} <${process.env.GMAIL_USER}>`, // sender address
+              from: `Gift Solar <${process.env.GMAIL_USER}>`, // sender address
               to: email, // list of receivers
-              subject: "Gift Solar", // Subject line
+              subject: "Reset Password", // Subject line
               html: `
                 <h2>Please click on given link to resest your password</2>
-                <a href=${process.env.SECRET_URL}/api/auth/resetpassword/${token}>${process.env.SECRET_URL}/api/auth/resetpassword/${token}</a>
+                <a href=${process.env.SECRET_URL}/resetpassword/${token}>${process.env.SECRET_URL}/resetpassword/${token}</a>
                 `, // html body
             });
 
