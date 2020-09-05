@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Admin = require("./adminModel");
+const resetTemplate = require("../templates/resetTemplate");
 
 const route = express.Router();
 
@@ -36,10 +37,7 @@ route.patch("/forgotpassword", (req, res) => {
               from: `Gift Solar <${process.env.GMAIL_USER}>`, // sender address
               to: email, // list of receivers
               subject: "Reset Password", // Subject line
-              html: `
-                <h2>Please click on given link to resest your password</2>
-                <a href=${process.env.SECRET_URL}/resetpassword/${token}>${process.env.SECRET_URL}/resetpassword/${token}</a>
-                `, // html body
+              html: resetTemplate(token), // html body
             });
 
             console.log("Message sent: %s", info.messageId);
@@ -107,12 +105,10 @@ route.patch("/resetpassword/:token", (req, res) => {
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
-              from: `${process.env.NAME} <${process.env.GMAIL_USER}>`, // sender address
+              from: `Gift Solar <${process.env.GMAIL_USER}>`, // sender address
               to: link.email, // list of receivers
-              subject: "Gift Solar", // Subject line
-              text: "activities", // plain text body
+              subject: "thank you", // Subject line
               html: `
-                <h2>thank you</2>
                 <p>your password was successfully updated</p>
                 `, // html body
             });
@@ -141,3 +137,8 @@ route.patch("/resetpassword/:token", (req, res) => {
 });
 
 module.exports = route;
+
+//  `
+//                 <h2>Please click on given link to resest your password</2>
+//                 <a href=${process.env.SECRET_URL}/resetpassword/${token}>${process.env.SECRET_URL}/resetpassword/${token}</a>
+//                 `
