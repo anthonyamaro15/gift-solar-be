@@ -2,6 +2,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const Application = require("../models/applicationModel");
 const newApplicationTemplate = require("../templates/newApplicationTemplate");
+const restricted = require("../middlewares/restricted");
 const {
   validateId,
   validatePdfId,
@@ -62,7 +63,7 @@ route.post("/add", validateBody, (req, res) => {
 });
 
 // GET /api/application/all
-route.get("/all", (req, res) => {
+route.get("/all", restricted, (req, res) => {
   Application.all()
     .then((applications) => res.status(200).json(applications))
     .catch((err) =>
@@ -73,7 +74,7 @@ route.get("/all", (req, res) => {
 });
 
 // PATCH api/application/update/:id
-route.patch("/update/:id", validateId, (req, res) => {
+route.patch("/update/:id", restricted, validateId, (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -89,7 +90,7 @@ route.patch("/update/:id", validateId, (req, res) => {
 });
 
 // DELETE api/application/delete/:id
-route.delete("/delete/:id", validateId, (req, res) => {
+route.delete("/delete/:id", restricted, validateId, (req, res) => {
   const { id } = req.params;
 
   Application.removeApplication(id)
@@ -104,7 +105,7 @@ route.delete("/delete/:id", validateId, (req, res) => {
 });
 
 // DELETE api/application/delete-pdf/:id
-route.delete("/delete-pdf/:id", validatePdfId, (req, res) => {
+route.delete("/delete-pdf/:id", restricted, validatePdfId, (req, res) => {
   const { id } = req.params;
 
   Application.removePdf(id)
