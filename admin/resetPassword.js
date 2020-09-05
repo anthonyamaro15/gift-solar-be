@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Admin = require("./adminModel");
 
-console.log("here ", process.env.SECRET_URL);
-
 const route = express.Router();
 
 route.patch("/forgotpassword", (req, res) => {
